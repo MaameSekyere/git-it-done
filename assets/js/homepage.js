@@ -1,3 +1,8 @@
+var userFormEl = document.querySelector("#user-form");
+var nameInputEl = document.querySelector("#username");
+var repoContainerEl = document.querySelector("#repos-container");
+var repoSearchTerm = document.querySelector("#repo-search-term");
+
 var getUserRepos = function (user) {
   // format the github api url
   var apiUrl = "https://api.github.com/users/" + user + "/repos";
@@ -20,12 +25,8 @@ var getUserRepos = function (user) {
     });
 };
 
-var userFormEl = document.querySelector("#user-form");
-var nameInputEl = document.querySelector("#username");
-var repoContainerEl = document.querySelector("#repos-container");
-var repoSearchTerm = document.querySelector("#repo-search-term");
-
 var formSubmitHandler = function (event) {
+  //prevent page from refreshing
   event.preventDefault();
   // get value from input element
   var username = nameInputEl.value.trim();
@@ -41,9 +42,6 @@ var formSubmitHandler = function (event) {
 };
 
 var displayRepos = function (repos, searchTerm) {
-  console.log(repos);
-  console.log(searchTerm);
-
   // check if api returned any repos
   if (repos.length === 0) {
     repoContainerEl.textContent = "No repositories found.";
@@ -92,5 +90,5 @@ var displayRepos = function (repos, searchTerm) {
     repoContainerEl.appendChild(repoEl);
   }
 };
-
+//add event listeners to forms
 userFormEl.addEventListener("submit", formSubmitHandler);
